@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Result - Chaya</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .result-container {
+            max-width: 600px;
+            margin: 5rem auto;
+            text-align: center;
+            padding: 3rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        .success-icon {
+            color: var(--primary-green);
+            font-size: 5rem;
+            margin-bottom: 1rem;
+        }
+        .error-icon {
+            color: #d9534f;
+            font-size: 5rem;
+            margin-bottom: 1rem;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body style="background-color: var(--light-beige);">
+
+    <header>
+        <div class="logo-container">
+            <a href="index.html"><img src="assets/logo.png" alt="Chaya Logo"></a>
+        </div>
+    </header>
+
+    <div class="result-container" id="result-content">
+        <!-- Content injected via JS -->
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const status = urlParams.get('status');
+            const msg = urlParams.get('msg');
+            const container = document.getElementById('result-content');
+
+            if (status === 'success') {
+                container.innerHTML = `
+                    <span class="material-icons success-icon">check_circle</span>
+                    <h2 style="color: var(--primary-green); margin-bottom: 1rem;">Payment Successful!</h2>
+                    <p style="margin-bottom: 2rem;">Thank you for your purchase. Your payment via bKash has been confirmed.</p>
+                    <a href="index.html" class="btn-primary">Return to Home</a>
+                `;
+            } else {
+                let errorMessage = "There was an issue processing your bKash payment.";
+                if (status === 'cancel') errorMessage = "The payment was cancelled.";
+                if (msg) errorMessage = decodeURIComponent(msg);
+
+                container.innerHTML = `
+                    <span class="material-icons error-icon">error</span>
+                    <h2 style="color: #d9534f; margin-bottom: 1rem;">Payment Failed</h2>
+                    <p style="margin-bottom: 2rem;">${errorMessage}</p>
+                    <a href="index.html" class="btn-primary">Return to Home</a>
+                `;
+            }
+        });
+    </script>
+</body>
+</html>

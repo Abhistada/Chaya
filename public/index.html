@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chaya </title>
+    <meta name="description"
+        content="Discover Chaya's sustainable eco-structures for modern living. Pergolas, roofs, boundaries, and partitions designed for nature.">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/ icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+<body>
+
+    <header>
+        <div class="logo-container">
+            <img src="assets/logo.png" alt="Chaya Logo">
+        </div>
+        <nav id="main-nav">
+            <ul>
+                <li><a href="#eco-materials">Eco-Materials</a></li>
+                <li><a href="#quote" id="quote-trigger">Get a Quote</a></li>
+                <li><a href="#about-us">About Us</a></li>
+            </ul>
+        </nav>
+        <div class="header-icons">
+            <div class="auth-btn" id="auth-modal-toggle">
+                <span class="auth-label">Login</span>
+            </div>
+            <div class="cart-icon" id="cart-toggle">
+                <span class="cart-count" id="cart-count">0</span>
+                <span class="cart-label">My Cart</span>
+            </div>
+            <div class="mobile-menu-icon" id="mobile-menu-toggle">
+                <span class="material-icons">menu</span>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero"
+        style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('assets/hero.png');">
+        <div class="hero-content reveal">
+            <h1 class="hero-title">Trust in every foundation</h1>
+            <p class="hero-subtitle">Sustainable Shade for living</p>
+            <button id="demo-designs-btn" class="btn-primary">Demo Designs</button>
+        </div>
+    </section>
+
+    <section class="categories reveal" id="eco-materials">
+        <div class="section-header" style="text-align: center; margin-bottom: 3rem;">
+            <h2 style="color: var(--primary-green); font-size: 2.5rem;">Product Categories</h2>
+            <p style="color: var(--accent-brown); font-weight: 600;">Sustainable architecture for every need</p>
+        </div>
+
+        <div class="category-grid">
+            <!-- Pergolas -->
+            <div class="category-card">
+                <img src="assets/custom.png" alt="Pergolas" class="category-image">
+                <div class="category-card-content">
+                    <h3>Pergolas</h3>
+                    <p>Open-air structures that provide shade and style to your outdoor space.</p>
+                    <p style="font-size: 0.9rem; margin: 0.5rem 0; color: #666;">Size: 8*10 ft | Thickness: 0.35mm -
+                        0.60mm</p>
+                    <div style="margin: 1rem 0;">
+                        <p style="font-weight: 700; color: var(--accent-brown); margin: 0;">Color Coated: 1000 tk/sheet
+                        </p>
+                        <p style="font-weight: 700; color: var(--primary-green); margin: 0;">Non-Color: 900 tk/sheet
+                        </p>
+                    </div>
+                    <div style="display: flex; gap: 0.5rem;">
+                        <button class="btn-secondary add-to-cart" data-id="cat-1-c" data-name="Pergola (Color)"
+                            data-price="1200" style="padding: 0.5rem; font-size: 0.8rem;">Add Color coated</button>
+                        <button class="btn-secondary add-to-cart" data-id="cat-1-n" data-name="Pergola (Non-Color)"
+                            data-price="1000" style="padding: 0.5rem; font-size: 0.8rem;">Add Non-color</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Boundaries -->
+            <div class="category-card">
+                <img src="assets/boundary.png" alt="Boundaries" class="category-image">
+                <div class="category-card-content">
+                    <h3>Boundaries</h3>
+                    <p>Sustainable fencing and boundary solutions for privacy and security.</p>
+                    <p style="font-size: 0.9rem; margin: 0.5rem 0; color: #666;">Size: 8*10 ft | Thickness: 0.35mm -
+                        0.60mm</p>
+                    <div style="margin: 1rem 0;">
+                        <p style="font-weight: 700; color: var(--accent-brown); margin: 0;">Color Coated: 1000 tk/sheet
+                        </p>
+                        <p style="font-weight: 700; color: var(--primary-green); margin: 0;">Non-Color: 900 tk/sheet
+                        </p>
+                    </div>
+                    <div style="display: flex; gap: 0.5rem;">
+                        <button class="btn-secondary add-to-cart" data-id="cat-2-c" data-name="Boundary (Color)"
+                            data-price="1200" style="padding: 0.5rem; font-size: 0.8rem;">Add Color coated</button>
+                        <button class="btn-secondary add-to-cart" data-id="cat-2-n" data-name="Boundary (Non-Color)"
+                            data-price="1000" style="padding: 0.5rem; font-size: 0.8rem;">Add Non-color </button>
+                    </div>
+                </div>
+            </div>
+            <!-- Roofs -->
+            <div class="category-card">
+                <img src="assets/roof.png" alt="Eco Roofs" class="category-image">
+                <div class="category-card-content">
+                    <h3>Eco Roofs</h3>
+                    <p>Modern roofing solutions using color-coated eco-sheets.</p>
+                    <p style="font-size: 0.9rem; margin: 0.5rem 0; color: #666;">Size: 8*10 ft | Thickness: 0.35mm -
+                        0.60mm</p>
+                    <div style="margin: 1rem 0;">
+                        <p style="font-weight: 700; color: var(--accent-brown); margin: 0;">Color Coated: 1000 tk/sheet
+                        </p>
+                        <p style="font-weight: 700; color: var(--primary-green); margin: 0;">Non-Color: 900 tk/sheet
+                        </p>
+                    </div>
+                    <div style="display: flex; gap: 0.5rem;">
+                        <button class="btn-secondary add-to-cart" data-id="cat-3-c" data-name="Roof (Color)"
+                            data-price="1200" style="padding: 0.5rem; font-size: 0.8rem;">Add Color coated</button>
+                        <button class="btn-secondary add-to-cart" data-id="cat-3-n" data-name="Roof (Non-Color)"
+                            data-price="1000" style="padding: 0.5rem; font-size: 0.8rem;">Add Non-color </button>
+                    </div>
+                </div>
+            </div>
+            <!-- Partitions -->
+            <div class="category-card">
+                <img src="assets/eco_structure.png" alt="Partitions" class="category-image">
+                <div class="category-card-content">
+                    <h3>Partitions</h3>
+                    <p>Modular indoor and outdoor partitions for flexible living.</p>
+                    <p style="font-size: 0.9rem; margin: 0.5rem 0; color: #666;">Size: 8*10 ft | Thickness: 0.35mm -
+                        0.60mm</p>
+                    <div style="margin: 1rem 0;">
+                        <p style="font-weight: 700; color: var(--accent-brown); margin: 0;">Color Coated: 1000 tk/sheet
+                        </p>
+                        <p style="font-weight: 700; color: var(--primary-green); margin: 0;">Non-Color: 900 tk/sheet
+                        </p>
+                    </div>
+                    <div style="display: flex; gap: 0.5rem;">
+                        <button class="btn-secondary add-to-cart" data-id="cat-4-c" data-name="Partition (Color)"
+                            data-price="1200" style="padding: 0.5rem; font-size: 0.8rem;">Add Color</button>
+                        <button class="btn-secondary add-to-cart" data-id="cat-4-n" data-name="Partition (Non-Color)"
+                            data-price="1000" style="padding: 0.5rem; font-size: 0.8rem;">Add Non-Color</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <p
+            style="text-align: center; margin-top: 3rem; font-style: italic; color: var(--primary-green); font-weight: 500;">
+            * Size and colors can be customized to your needs. Contact us for bulk orders or custom dimensions.
+        </p>
+    </section>
+
+    <section class="product-section reveal" style="padding: 4rem 5%; background-color: var(--light-green-bg);">
+        <h2 style="color: var(--primary-green); margin-bottom: 2rem; font-size: 2rem;">Our Prototype</h2>
+        <div style="display: flex; flex-wrap: wrap; gap: 2rem; align-items: center;">
+            <div style="flex: 1; min-width: 300px;">
+                <img src="assets/prototype.png" alt="Our Flagship Product"
+                    style="width: 100%; border-radius: 4px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+            </div>
+            <div style="flex: 1; min-width: 300px;">
+                <h3 style="font-size: 1.5rem; margin-bottom: 1rem; color: var(--secondary-green);">Sustainable & Modular
+                </h3>
+                <p style="margin-bottom: 1rem;">Crafted from ethically sourced materials, our signature shade structures
+                    are designed to blend seamlessly with nature while providing durable protection.</p>
+                <ul style="list-style: none; gap: 0.5rem; display: flex; flex-direction: column;">
+                    <li><span class="material-icons"
+                            style="vertical-align: middle; color: var(--accent-brown);">check</span> Weather Resistant
+                    </li>
+                    <li><span class="material-icons"
+                            style="vertical-align: middle; color: var(--accent-brown);">check</span> Easy Installation
+                    </li>
+                    <li><span class="material-icons"
+                            style="vertical-align: middle; color: var(--accent-brown);">check</span> 100% Recyclable
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="stats-section reveal"
+        style="padding: 4rem 5%; background-color: var(--light-beige); text-align: center;">
+        <div
+            style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; max-width: 1200px; margin: 0 auto;">
+            <div class="stat-item">
+                <h2 style="font-size: 3rem; color: var(--accent-brown); margin-bottom: 0.5rem;">500+</h2>
+                <p style="font-weight: 600; color: var(--primary-green);">Inquiries Received</p>
+            </div>
+            <div class="stat-item">
+                <h2 style="font-size: 3rem; color: var(--accent-brown); margin-bottom: 0.5rem;">50+</h2>
+                <p style="font-weight: 600; color: var(--primary-green);">Successful Installations</p>
+            </div>
+            <div class="stat-item">
+                <h2 style="font-size: 3rem; color: var(--accent-brown); margin-bottom: 0.5rem;">35+</h2>
+                <p style="font-weight: 600; color: var(--primary-green);">Eco-Partners</p>
+            </div>
+            <div class="stat-item">
+                <h2 style="font-size: 3rem; color: var(--accent-brown); margin-bottom: 0.5rem;">Reach</h2>
+                <p style="font-weight: 600; color: var(--primary-green);">Bangladeshi Founded Hero</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="about-us" class="about-section reveal"
+        style="padding: 6rem 5%; background-color: var(--primary-green); color: white;">
+        <div style="max-width: 1000px; margin: 0 auto; text-align: center;">
+            <h2 style="font-size: 2.5rem; margin-bottom: 2rem;">About Chaya</h2>
+            <p style="font-size: 1.2rem; line-height: 1.8; margin-bottom: 4rem; opacity: 0.9;">
+                Chaya is dedicated to revolutionizing the construction industry with sustainable, eco-friendly modular
+                structures.
+                Our mission is to provide durable, aesthetic, and professional shade solutions that respect the
+                environment
+                while offering modern comfort. We believe in building trust through every foundation we lay.
+            </p>
+
+            <h3 style="font-size: 2.5rem; margin-bottom: 3rem;">Meet Our Team</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 3rem;">
+                <div class="team-member">
+                    <img src="assets/tahira.jpeg" alt="Tasmia Tahira Alam - CEO"
+                        style="width: 160px; height: 160px; object-fit: cover; border-radius: 50%; border: 4px solid rgba(255,255,255,0.2); margin: 0 auto 1.5rem; display: block;">
+                    <h4>Tasmia Tahira Alam</h4>
+                    <p style="opacity: 0.7;">Chief Operating Officer (COO) </p>
+                </div>
+                <div class="team-member">
+                    <img src="assets/priya.jpg" alt="Priya Rani Vokto - CTO"
+                        style="width: 160px; height: 160px; object-fit: cover; border-radius: 50%; border: 4px solid rgba(255,255,255,0.2); margin: 0 auto 1.5rem; display: block;">
+                    <h4>Priya Rani Vokto</h4>
+                    <p style="opacity: 0.7;">Chief Technology Officer (CTO)</p>
+                </div>
+                <div class="team-member">
+                    <img src="assets/fadeelah.jpeg" alt="Fadeelah Mahmood - CMO"
+                        style="width: 160px; height: 160px; object-fit: cover; border-radius: 50%; border: 4px solid rgba(255,255,255,0.2); margin: 0 auto 1.5rem; display: block;">
+                    <h4>Fadeelah Mahmood</h4>
+                    <p style="opacity: 0.7;">Chief Information Officer (CIO)</p>
+                </div>
+                <div class="team-member">
+                    <img src="assets/proma.jpeg" alt="Farhana Islam Proma - COO"
+                        style="width: 160px; height: 160px; object-fit: cover; border-radius: 50%; border: 4px solid rgba(255,255,255,0.2); margin: 0 auto 1.5rem; display: block;">
+                    <h4>Farhana Islam Proma</h4>
+                    <p style="opacity: 0.7;">Chief Financial Officer (CFO)</p>
+                </div>
+            </div>
+
+            <!-- Extended Team Section -->
+            <div class="extended-team-section"
+                style="margin-top: 6rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 4rem;">
+                <h3 style="font-size: 2.5rem; margin-bottom: 4rem;">Extended Leadership</h3>
+
+                <!-- CEO & CFO Large -->
+                <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 5rem; margin-bottom: 5rem;">
+                    <div class="team-member extended-leader">
+                        <img src="assets/naef.jpeg" alt="MD NADIRUZZAMAN NAEF - CEO" class="extended-leader-img">
+                        <h4 style="font-size: 1.5rem;">MD NADIRUZZAMAN NAEF</h4>
+                        <p style="opacity: 0.8; font-size: 1.1rem;">Chief Executive Officer (CEO)</p>
+                    </div>
+                    <div class="team-member extended-leader">
+                        <img src="assets/yahia.png" alt="ABU YEAHIA - CFO" class="extended-leader-img">
+                        <h4 style="font-size: 1.5rem;">ABU YEAHIA</h4>
+                        <p style="opacity: 0.8; font-size: 1.1rem;">Chief Marketing Officer (CMO)</p>
+                    </div>
+                </div>
+
+                <!-- Executive Group Photo -->
+                <div style="margin-bottom: 6rem;">
+                    <h4 style="font-size: 1.8rem; margin-bottom: 2rem; opacity: 0.9;">Team with all Executives </h4>
+                    <div
+                        style="position: relative; overflow: hidden; border-radius: 12px; box-shadow: 0 20px 50px rgba(0,0,0,0.3);">
+                        <img src="assets/executives.png" alt="Executive Team Group"
+                            style="width: 100%; height: auto; display: block; transition: transform 0.5s ease;">
+                    </div>
+                </div>
+
+                <!-- Advisor Panel -->
+                <div class="advisor-panel">
+                    <h3 style="font-size: 2.5rem; margin-bottom: 3rem;">Our Advisor Panel</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 3rem;">
+                        <div class="team-member">
+                            <img src="assets/ad1.jpeg" alt="Dr. Mohammad Shahidur Rahman"
+                                style="width: 160px; height: 160px; object-fit: cover; border-radius: 50%; border: 4px solid rgba(255,255,255,0.2); margin: 0 auto 1.5rem; display: block; filter: sepia(20%);">
+                            <h4>Dr. Mohammad Shahidur Rahman</h4>
+                            <p style="opacity: 0.7;">Professor & Head Dept. of CEE, SUST</p>
+                        </div>
+                        <div class="team-member">
+                            <img src="assets/ad2.jpeg" alt="NAHFUZUN NOBI MAHIM"
+                                style="width: 160px; height: 160px; object-fit: cover; border-radius: 50%; border: 4px solid rgba(255,255,255,0.2); margin: 0 auto 1.5rem; display: block; filter: sepia(20%);">
+                            <h4>NAHFUZUN NOBI MAHIM</h4>
+                            <p style="opacity: 0.7;">Technical Support Engineer of LAFARGEHOLCIM BANGLADESH PLC.</p>
+                        </div>
+                        <div class="team-member">
+                            <img src="assets/ad3.png" alt="ABDULLAH AL NOMAN"
+                                style="width: 160px; height: 160px; object-fit: cover; border-radius: 50%; border: 4px solid rgba(255,255,255,0.2); margin: 0 auto 1.5rem; display: block; filter: sepia(20%);">
+                            <h4>ABDULLAH AL NOMAN</h4>
+                            <p style="opacity: 0.7;">LECTURER, Dept. Of CEE,SUST</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials reveal" style="padding: 6rem 5%; background-color: white;">
+        <h2 style="text-align: center; color: var(--primary-green); margin-bottom: 4rem;">What Our Clients Say</h2>
+        <div
+            style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; max-width: 1200px; margin: 0 auto;">
+            <div style="padding: 2rem; background: var(--light-green-bg); border-radius: 12px;">
+                <p style="font-style: italic; margin-bottom: 1.5rem;">"Chaya's pergolas transformed our rooftop. The
+                    modular design made installation a breeze!"</p>
+                <h5 style="color: var(--primary-green);">- Ahmed Zubair, Residential Client</h5>
+            </div>
+            <div style="padding: 2rem; background: var(--light-green-bg); border-radius: 12px;">
+                <p style="font-style: italic; margin-bottom: 1.5rem;">"The eco-sheets are durable and look fantastic.
+                    Highly recommend for any sustainable project."</p>
+                <h5 style="color: var(--primary-green);">- Sarah Karim, Architect</h5>
+            </div>
+            <div style="padding: 2rem; background: var(--light-green-bg); border-radius: 12px;">
+                <p style="font-style: italic; margin-bottom: 1.5rem;">"Professional team and excellent build quality.
+                    Best decision for our commercial boundary."</p>
+                <h5 style="color: var(--primary-green);">- Kabir Hossain, Business Owner</h5>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact-section">
+        <div class="footer-content"
+            style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 2rem; text-align: left; max-width: 1200px; margin: 0 auto;">
+            <div style="flex: 1; min-width: 250px;">
+                <h4 style="margin-bottom: 0.5rem;">Chaya</h4>
+                <p class="tagline" style="margin-bottom: 1rem;">Trust in Every Foundation</p>
+                <p style="font-size: 0.9rem; opacity: 0.8;">Sustainable shade solutions designed for the modern world.
+                </p>
+            </div>
+
+            <div style="flex: 1; min-width: 250px;">
+                <h5 style="font-size: 1.1rem; margin-bottom: 1rem; color: var(--accent-brown);">Contact Us</h5>
+                <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.8rem;">
+                    <li style="display: flex; align-items: center; gap: 0.5rem;">
+                        <span class="material-icons" style="font-size: 1.2rem;">email</span>
+                        <a href="mailto:hello@chayatest.com"
+                            style="color: inherit; text-decoration: none;">chaya@gmail.com</a>
+                    </li>
+                    <li style="display: flex; align-items: center; gap: 0.5rem;">
+                        <span class="material-icons" style="font-size: 1.2rem;">phone</span>
+                        <a href="tel:+1234567890" style="color: inherit; text-decoration: none;">01634724217</a>
+                    </li>
+                    <li style="display: flex; align-items: center; gap: 0.5rem;">
+                        <span class="material-icons" style="font-size: 1.2rem;">place</span>
+                        <span></span>
+                    </li>
+                </ul>
+            </div>
+
+            <div style="flex: 1; min-width: 250px;">
+                <h5 style="font-size: 1.1rem; margin-bottom: 1rem; color: var(--accent-brown);">Quick Links</h5>
+                <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.5rem;">
+                    <li><a href="#residential" style="color: inherit; text-decoration: none; opacity: 0.8;">Residential
+                        </a></li>
+                    <li><a href="#commercial"
+                            style="color: inherit; text-decoration: none; opacity: 0.8;">Commercial</a></li>
+                    <li><a href="#quote" style="color: inherit; text-decoration: none; opacity: 0.8;">Get a Quote</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div
+            style="border-top: 1px solid rgba(255,255,255,0.1); margin-top: 2rem; padding-top: 2rem; text-align: center; font-size: 0.85rem; opacity: 0.7;">
+            <p>&copy; 2025 Chaya Structures. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Cart Drawer -->
+    <div id="cart-drawer" class="cart-drawer">
+        <div class="cart-drawer-content">
+            <div class="cart-header">
+                <h2>Your Cart</h2>
+                <span class="material-icons close-cart" id="close-cart">close</span>
+            </div>
+            <div id="cart-items" class="cart-items">
+                <!-- Items will be injected here -->
+                <p class="empty-msg">Your cart is empty.</p>
+            </div>
+            <div class="cart-footer">
+                <div class="total-row">
+                    <span>Total:</span>
+                    <span id="cart-total">0 tk</span>
+                </div>
+
+                <div class="delivery-details">
+                    <h3>Delivery Information</h3>
+                    <div class="form-group">
+                        <input type="text" id="delivery-name" placeholder="Full Name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" id="delivery-phone" placeholder="Phone Number" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea id="delivery-address" placeholder="Full Delivery Address" rows="3"
+                            required></textarea>
+                    </div>
+                </div>
+
+                <div class="payment-methods">
+                    <h3>Select Payment Method</h3>
+                    <div class="payment-grid">
+                        <label class="payment-option">
+                            <input type="radio" name="payment" value="nagad" checked>
+                            <span class="payment-box">Nagad</span>
+                        </label>
+                        <label class="payment-option">
+                            <input type="radio" name="payment" value="bkash">
+                            <span class="payment-box">bKash</span>
+                        </label>
+                        <label class="payment-option">
+                            <input type="radio" name="payment" value="card">
+                            <span class="payment-box">Card</span>
+                        </label>
+                    </div>
+                </div>
+
+                <button id="checkout-btn" class="btn-primary checkout-btn" disabled>Confirm Payment</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Demo Designs Modal -->
+    <div id="demo-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Our Demo Designs</h2>
+            <div class="demo-grid">
+                <img src="assets/roof.png" alt="Demo 1">
+                <img src="assets/boundary.png" alt="Demo 2">
+                <img src="assets/custom.png" alt="Demo 3">
+                <img src="assets/prototype.png" alt="Demo 4">
+            </div>
+        </div>
+    </div>
+
+    <!-- Get a Quote Modal -->
+    <div id="quote-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Get a Free Quote</h2>
+            <form id="quote-form">
+                <div class="form-group">
+                    <label>Your Name</label>
+                    <input type="text" id="quote-name" placeholder="John Doe" required>
+                </div>
+                <div class="form-group">
+                    <label>Material Needed</label>
+                    <select id="quote-material">
+                        <option>Color Coated Sheets</option>
+                        <option>Plain Sheets</option>
+                        <option>Custom Structure</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Area Size (sq ft)</label>
+                    <input type="number" id="quote-area" placeholder="500" required>
+                </div>
+                <button type="submit" class="btn-primary">Send Request</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Auth Modal -->
+    <div id="auth-modal" class="modal">
+        <div class="modal-content auth-modal-content">
+            <span class="close-modal" id="close-auth">&times;</span>
+            <div class="auth-tabs">
+                <button class="auth-tab active" data-tab="login">Login</button>
+                <button class="auth-tab" data-tab="signup">Sign Up</button>
+            </div>
+
+            <!-- Login Form -->
+            <form id="login-form" class="auth-form active">
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" id="login-email" placeholder="email@example.com" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="login-password" placeholder="••••••••" required>
+                </div>
+                <button type="submit" class="btn-primary" style="width: 100%;">Login to Chaya</button>
+            </form>
+
+            <!-- Signup Form -->
+            <form id="signup-form" class="auth-form">
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" id="signup-name" placeholder="Priya Rani Vokto" required>
+                </div>
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" id="signup-email" placeholder="chaya@gmail.com" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="signup-password" placeholder="••••••••" required>
+                </div>
+                <div class="form-group">
+                    <label>Confirm Password</label>
+                    <input type="password" id="signup-confirm" placeholder="••••••••" required>
+                </div>
+                <button type="submit" class="btn-primary" style="width: 100%;">Create Account</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Floating Contact Button -->
+    <a href="#contact-section" class="floating-contact-btn">Contact Us</a>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
