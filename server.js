@@ -2,18 +2,20 @@ const express = require('express');
 const cors = require('cors');
 const bcrypt = require('bcrypt');
 const path = require('path');
-const db = require('./database');
+const pool = require('./database');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 const BKASH_CONFIG = {
     baseURL: 'https://tokenized.sandbox.bka.sh/v1.2.0-beta/tokenized/checkout',
-    app_key: 'sandboxTokenizedUser02AppId',
-    app_secret: 'sandboxTokenizedUser02AppSecret',
-    username: 'sandboxTokenizedUser02',
-    password: 'sandboxTokenizedUser02Pass'
+    app_key: process.env.BKASH_APP_KEY || 'sandboxTokenizedUser02AppId',
+    app_secret: process.env.BKASH_APP_SECRET || 'sandboxTokenizedUser02AppSecret',
+    username: process.env.BKASH_USERNAME || 'sandboxTokenizedUser02',
+    password: process.env.BKASH_PASSWORD || 'sandboxTokenizedUser02Pass'
 };
+
+const APP_URL = process.env.APP_URL || `http://localhost:${PORT}`;
 
 async function getBkashToken() {
     const response = await fetch(`${BKASH_CONFIG.baseURL}/token/grant`, {
@@ -41,42 +43,39 @@ app.use(express.static(path.join(__dirname, 'public')));
 // 1. Signup
 app.post('/api/signup', async (req, res) => {
     const { name, email, password } = req.body;
-    
+
     if (!name || !email || !password) {
         return res.status(400).json({ error: 'Please provide all fields' });
     }
 
     try {
         const hashedPassword = await bcrypt.hash(password, 10);
-        const sql = `INSERT INTO users (name, email, password) VALUES (?, ?, ?)`;
-        
-        db.run(sql, [name, email, hashedPassword], function(err) {
-            if (err) {
-                if (err.message.includes('UNIQUE constraint failed')) {
-                    return res.status(400).json({ error: 'Email already exists' });
-                }
-                return res.status(500).json({ error: 'Database error' });
-            }
-            res.status(201).json({ message: 'User registered successfully', userId: this.lastID });
-        });
+        const result = await pool.query(
+            `INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING id`,
+            [name, email, hashedPassword]
+        );
+        res.status(201).json({ message: 'User registered successfully', userId: result.rows[0].id });
     } catch (err) {
+        if (err.code === '23505') { // unique_violation
+            return res.status(400).json({ error: 'Email already exists' });
+        }
+        console.error(err);
         res.status(500).json({ error: 'Server error during signup' });
     }
 });
 
 // 2. Login
-app.post('/api/login', (req, res) => {
+app.post('/api/login', async (req, res) => {
     const { email, password } = req.body;
-    
+
     if (!email || !password) {
         return res.status(400).json({ error: 'Please provide email and password' });
     }
 
-    const sql = `SELECT * FROM users WHERE email = ?`;
-    db.get(sql, [email], async (err, user) => {
-        if (err) {
-            return res.status(500).json({ error: 'Database error' });
-        }
+    try {
+        const result = await pool.query(`SELECT * FROM users WHERE email = $1`, [email]);
+        const user = result.rows[0];
+
         if (!user) {
             return res.status(401).json({ error: 'Invalid credentials' });
         }
@@ -86,29 +85,31 @@ app.post('/api/login', (req, res) => {
             return res.status(401).json({ error: 'Invalid credentials' });
         }
 
-        // Return user info (without password)
         res.status(200).json({ message: 'Login successful', user: { id: user.id, name: user.name, email: user.email } });
-    });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Database error' });
+    }
 });
 
 // 3. Checkout
-app.post('/api/checkout', (req, res) => {
+app.post('/api/checkout', async (req, res) => {
     const { userId, name, phone, address, total, paymentMethod, items } = req.body;
 
     if (!name || !phone || !address || !items) {
         return res.status(400).json({ error: 'Missing required delivery information' });
     }
 
-    const sql = `INSERT INTO orders (user_id, name, phone, address, total, payment_method, items) VALUES (?, ?, ?, ?, ?, ?, ?)`;
-    const params = [userId || null, name, phone, address, total, paymentMethod, JSON.stringify(items)];
-
-    db.run(sql, params, function(err) {
-        if (err) {
-            console.error(err);
-            return res.status(500).json({ error: 'Database error while saving order' });
-        }
-        res.status(201).json({ message: 'Order placed successfully', orderId: this.lastID });
-    });
+    try {
+        const result = await pool.query(
+            `INSERT INTO orders (user_id, name, phone, address, total, payment_method, items) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING id`,
+            [userId || null, name, phone, address, total, paymentMethod, JSON.stringify(items)]
+        );
+        res.status(201).json({ message: 'Order placed successfully', orderId: result.rows[0].id });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Database error while saving order' });
+    }
 });
 
 // 3.5 bKash Payment Routes
@@ -133,7 +134,7 @@ app.post('/api/bkash/create', async (req, res) => {
             body: JSON.stringify({
                 mode: '0011',
                 payerReference: phone,
-                callbackURL: `http://localhost:${PORT}/api/bkash/callback`,
+                callbackURL: `${APP_URL}/api/bkash/callback`,
                 amount: numericTotal.toFixed(2),
                 currency: 'BDT',
                 intent: 'sale',
@@ -146,16 +147,12 @@ app.post('/api/bkash/create', async (req, res) => {
             return res.status(500).json({ error: 'Failed to create bKash payment: ' + paymentData.statusMessage });
         }
 
-        const sql = `INSERT INTO orders (user_id, name, phone, address, total, payment_method, items, payment_status, bkash_payment_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
-        const params = [userId || null, name, phone, address, total, 'bkash', JSON.stringify(items), 'pending', paymentData.paymentID];
+        const result = await pool.query(
+            `INSERT INTO orders (user_id, name, phone, address, total, payment_method, items, payment_status, bkash_payment_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING id`,
+            [userId || null, name, phone, address, total, 'bkash', JSON.stringify(items), 'pending', paymentData.paymentID]
+        );
 
-        db.run(sql, params, function(err) {
-            if (err) {
-                console.error(err);
-                return res.status(500).json({ error: 'Database error while saving order' });
-            }
-            res.status(200).json({ bkashURL: paymentData.bkashURL });
-        });
+        res.status(200).json({ bkashURL: paymentData.bkashURL });
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: 'Server error during bKash payment creation' });
@@ -180,11 +177,11 @@ app.get('/api/bkash/callback', async (req, res) => {
             const execData = await executeRes.json();
 
             if (execData.statusCode === '0000' || execData.statusCode === '2062') {
-                const sql = `UPDATE orders SET payment_status = 'completed' WHERE bkash_payment_id = ?`;
-                db.run(sql, [paymentID], (err) => {
-                    if (err) console.error('Error updating order status:', err);
-                    res.redirect('/payment-result.html?status=success');
-                });
+                await pool.query(
+                    `UPDATE orders SET payment_status = 'completed' WHERE bkash_payment_id = $1`,
+                    [paymentID]
+                );
+                res.redirect('/payment-result.html?status=success');
             } else {
                 res.redirect(`/payment-result.html?status=failure&msg=${encodeURIComponent(execData.statusMessage)}`);
             }
@@ -193,29 +190,32 @@ app.get('/api/bkash/callback', async (req, res) => {
             res.redirect('/payment-result.html?status=failure&msg=Execution_Error');
         }
     } else {
-        const sql = `UPDATE orders SET payment_status = ? WHERE bkash_payment_id = ?`;
-        db.run(sql, [status, paymentID], (err) => {
-            if (err) console.error('Error updating order status:', err);
-            res.redirect(`/payment-result.html?status=${status}`);
-        });
+        await pool.query(
+            `UPDATE orders SET payment_status = $1 WHERE bkash_payment_id = $2`,
+            [status, paymentID]
+        );
+        res.redirect(`/payment-result.html?status=${status}`);
     }
 });
 
 // 4. Quote Request
-app.post('/api/quote', (req, res) => {
+app.post('/api/quote', async (req, res) => {
     const { name, material, areaSize } = req.body;
-    
+
     if (!name || !material || !areaSize) {
         return res.status(400).json({ error: 'Please provide all fields' });
     }
 
-    const sql = `INSERT INTO quotes (name, material, area_size) VALUES (?, ?, ?)`;
-    db.run(sql, [name, material, areaSize], function(err) {
-        if (err) {
-            return res.status(500).json({ error: 'Database error while saving quote' });
-        }
-        res.status(201).json({ message: 'Quote requested successfully', quoteId: this.lastID });
-    });
+    try {
+        const result = await pool.query(
+            `INSERT INTO quotes (name, material, area_size) VALUES ($1, $2, $3) RETURNING id`,
+            [name, material, areaSize]
+        );
+        res.status(201).json({ message: 'Quote requested successfully', quoteId: result.rows[0].id });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Database error while saving quote' });
+    }
 });
 
 // Catch-all route to serve the frontend for unknown paths
@@ -226,3 +226,5 @@ app.use((req, res) => {
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
+
+module.exports = app;

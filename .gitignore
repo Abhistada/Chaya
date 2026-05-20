@@ -1,0 +1,4 @@
+node_modules/
+chaya.db
+.env
+*.db
