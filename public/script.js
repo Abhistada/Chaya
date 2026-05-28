@@ -10,7 +10,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const checkoutBtn = document.getElementById('checkout-btn');
 
     let cart = JSON.parse(localStorage.getItem('chaya_cart')) || [];
-    let currentUser = null;
+    let currentUser = JSON.parse(localStorage.getItem('chaya_user')) || null;
+
+    function updateAuthUI() {
+        const authLabel = document.querySelector('.auth-label');
+        if (authLabel) {
+            if (currentUser) {
+                authLabel.innerText = currentUser.name || 'Profile';
+            } else {
+                authLabel.innerText = 'Login';
+            }
+        }
+    }
 
     // Mobile Menu
     if (menuToggle) {
@@ -242,7 +253,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (authTrigger) {
         authTrigger.addEventListener('click', () => {
-            authModal.style.display = 'block';
+            if (currentUser) {
+                if (confirm('Do you want to log out?')) {
+                    currentUser = null;
+                    localStorage.removeItem('chaya_user');
+                    updateAuthUI();
+                    alert('Logged out successfully.');
+                }
+            } else {
+                authModal.style.display = 'block';
+            }
         });
     }
 
@@ -295,8 +315,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 if (res.ok) {
                     currentUser = data.user;
+                    localStorage.setItem('chaya_user', JSON.stringify(currentUser));
                     alert(`Welcome back to Chaya, ${currentUser.name}!`);
                     authModal.style.display = 'none';
+                    updateAuthUI();
                 } else {
                     alert(`Login failed: ${data.error}`);
                 }
@@ -371,6 +393,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Initial count update
     updateCartCount();
+    updateAuthUI();
 
     // Add smooth scrolling for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
